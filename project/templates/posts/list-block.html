@@ -1,0 +1,24 @@
+{% load blogs_tags %}
+
+{% for post in posts %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>
+                <a {% if request.user|read_post:post %}class="text-muted"{% endif %} href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                <small>in <a href="{{ post.blog.get_absolute_url }}">{{ post.blog }}</a></small>
+            </h3>
+
+            <p>
+                <small>
+                    created {{ post.date_created|date:"SHORT_DATETIME_FORMAT" }}
+                </small>
+            </p>
+        </div>
+    </div>
+{% empty %}
+    <div class="row">
+        <div class="col-md-12">
+            <p>No posts here yet.</p>
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock title %}Django test task</title>
+
+    <meta property="og:title" content="{% block og-title %}{% endblock og-title %}"/>
+    <meta property="og:description" content="{% block og-description %}{% endblock og-description %}"/>
+    {% block og-sitename %}
+        <meta property="og:site_name" content="Django test task"/>{% endblock og-sitename %}
+
+    <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
+
+    <link href="{% static 'css/theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    {% block extrahead %}{% endblock extrahead %}
+</head>
+<body>
+
+{% include 'includes/header.html' %}
+<div class="container">
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% block content %}{% endblock content %}
+</div>
+
+{% include 'includes/footer.html' %}
+
+{% block metrics %}
+    {% if not debug %}
+        {# include metrics #}
+    {% endif %}
+{% endblock metrics %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+{% block extrafooter %}{% endblock extrafooter %}
+</body>
+</html>

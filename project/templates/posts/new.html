@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}New Post - {% endblock %}
+
+{% block content %}
+    <div class="col-sm-4 col-sm-offset-4">
+        {% if form.errors %}
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                asdsad
+            </div>
+        {% endif %}
+        <form class="form-newpost" method="POST">
+            {% csrf_token %}
+            <div class="form-group {% if form.title.errors %}has-error{% endif %}">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+            </div>
+            <div class="form-group {% if form.text.errors %}has-error{% endif %}">
+                {{ form.text.label_tag }}
+                {{ form.text }}
+            </div>
+            <button class="btn btn-primary" type="submit">Post</button>
+        </form>
+    </div>
+{% endblock %}

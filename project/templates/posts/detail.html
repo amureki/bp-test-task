@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load blogs_tags %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ post.title }}
+            <small>by {{ post.user }}</small>
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                {{ post.text }}
+            </p>
+
+            <p>
+                <small>{{ post.date_created|date:"SHORT_DATETIME_FORMAT" }}</small>
+            </p>
+            {% if request.user.is_authenticated and not request.user|read_post:post %}
+                <form method="POST" action="{% url 'blogs:post-mark-as-read' post.pk %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-xs btn-primary" value="Mark as read"/>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

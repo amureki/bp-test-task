@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ blog.title }} posts</h1>
+    </div>
+
+    {% include 'posts/list-block.html' with posts=blog.posts.all %}
+{% endblock content %}
